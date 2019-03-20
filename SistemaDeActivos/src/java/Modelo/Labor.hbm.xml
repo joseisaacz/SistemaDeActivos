@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 20-Mar-2019 16:32:44 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Modelo.Labor" table="labor" catalog="inventario" optimistic-lock="version">
+        <composite-id name="id" class="Modelo.LaborId">
+            <key-property name="funcionarioId" type="string">
+                <column name="Funcionario_id" length="10" />
+            </key-property>
+            <key-property name="dependenciaCodigodependecia" type="string">
+                <column name="Dependencia_codigodependecia" length="45" />
+            </key-property>
+            <key-property name="puestoIdpuesto" type="string">
+                <column name="Puesto_idpuesto" length="10" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="dependencia" class="Modelo.Dependencia" update="false" insert="false" fetch="select">
+            <column name="Dependencia_codigodependecia" length="45" not-null="true" />
+        </many-to-one>
+        <many-to-one name="funcionario" class="Modelo.Funcionario" update="false" insert="false" fetch="select">
+            <column name="Funcionario_id" length="10" not-null="true" />
+        </many-to-one>
+        <many-to-one name="puesto" class="Modelo.Puesto" update="false" insert="false" fetch="select">
+            <column name="Puesto_idpuesto" length="10" not-null="true" />
+        </many-to-one>
+        <set name="activos" table="activo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idfuncionario" length="10" not-null="true" />
+                <column name="codigodependecia" length="45" not-null="true" />
+                <column name="idpuesto" length="10" not-null="true" />
+            </key>
+            <one-to-many class="Modelo.Activo" />
+        </set>
+    </class>
+</hibernate-mapping>

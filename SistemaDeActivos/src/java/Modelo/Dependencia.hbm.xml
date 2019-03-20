@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 20-Mar-2019 16:32:44 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Modelo.Dependencia" table="dependencia" catalog="inventario" optimistic-lock="version">
+        <id name="codigodependecia" type="string">
+            <column name="codigodependecia" length="45" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="funcionario" class="Modelo.Funcionario" fetch="select">
+            <column name="Funcionario_id" length="10" not-null="true" />
+        </many-to-one>
+        <property name="nombredependencia" type="string">
+            <column name="nombredependencia" length="45" not-null="true" />
+        </property>
+        <set name="labors" table="labor" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Dependencia_codigodependecia" length="45" not-null="true" />
+            </key>
+            <one-to-many class="Modelo.Labor" />
+        </set>
+        <set name="solicituds" table="solicitud" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="dependencia" length="45" not-null="true" />
+            </key>
+            <one-to-many class="Modelo.Solicitud" />
+        </set>
+    </class>
+</hibernate-mapping>

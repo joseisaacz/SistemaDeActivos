@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 20-Mar-2019 16:32:44 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Modelo.Funcionario" table="funcionario" catalog="inventario" optimistic-lock="version">
+        <id name="id" type="string">
+            <column name="id" length="10" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="45" not-null="true" />
+        </property>
+        <set name="solicituds" table="solicitud" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idFuncionario" length="10" not-null="true" />
+            </key>
+            <one-to-many class="Modelo.Solicitud" />
+        </set>
+        <set name="usuarios" table="usuario" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idfuncionario" length="10" not-null="true" />
+            </key>
+            <one-to-many class="Modelo.Usuario" />
+        </set>
+        <set name="labors" table="labor" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Funcionario_id" length="10" not-null="true" />
+            </key>
+            <one-to-many class="Modelo.Labor" />
+        </set>
+        <set name="dependencias" table="dependencia" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Funcionario_id" length="10" not-null="true" />
+            </key>
+            <one-to-many class="Modelo.Dependencia" />
+        </set>
+    </class>
+</hibernate-mapping>

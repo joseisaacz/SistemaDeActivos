@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 20-Mar-2019 16:32:44 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Modelo.Solicitud" table="solicitud" catalog="inventario" optimistic-lock="version">
+        <id name="numsolicitud" type="java.lang.Integer">
+            <column name="numsolicitud" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="dependencia" class="Modelo.Dependencia" fetch="select">
+            <column name="dependencia" length="45" not-null="true" />
+        </many-to-one>
+        <many-to-one name="funcionario" class="Modelo.Funcionario" fetch="select">
+            <column name="idFuncionario" length="10" not-null="true" />
+        </many-to-one>
+        <property name="numerocomprobante" type="string">
+            <column name="numerocomprobante" length="45" not-null="true" />
+        </property>
+        <property name="tipoadquision" type="string">
+            <column name="tipoadquision" length="45" not-null="true" />
+        </property>
+        <property name="fecha" type="date">
+            <column name="fecha" length="10" not-null="true" />
+        </property>
+        <property name="estadosolicitud" type="string">
+            <column name="estadosolicitud" length="45" not-null="true" />
+        </property>
+        <set name="biens" table="bien" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="solicitud" not-null="true" />
+            </key>
+            <one-to-many class="Modelo.Bien" />
+        </set>
+    </class>
+</hibernate-mapping>
